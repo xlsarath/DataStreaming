@@ -46,3 +46,6 @@ Topic Subscription - Kafka consumers indicate to the Kafka Cluster that they wou
 Consumer Lag - The difference between the offset of a consumer group and the latest message offset in Kafka itself
 CCPA - California Consumer Privacy Act
 GDPR - General Data Protection Regulation
+when network overhead is critical : zstd compression is preferred 
+lz4 is preferred when decompression speed is critical
+when ack is -1 brokers need to acknowledge the message before proceeding
