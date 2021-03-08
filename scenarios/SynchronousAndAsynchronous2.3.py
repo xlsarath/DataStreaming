@@ -42,7 +42,7 @@ def produce_sync(topic_name):
         #       sending it to Kafka!
         # p.produce(topic_name, ...)
         p.produce(topic_name, Purchase().serialize())
-        p.flush
+        p.flush  # <--  flush makes producer synchronous , remove this to make asynchronous
         
         if curr_iteration % 1000 == 0:
             elapsed = (datetime.datetime.utcnow() - start_time).seconds
