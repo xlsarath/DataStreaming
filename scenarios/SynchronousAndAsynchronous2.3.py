@@ -1,8 +1,9 @@
 # Please complete the TODO items in the code.
 
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 import json
 import random
+import datetime
 
 from confluent_kafka import Consumer, Producer
 from confluent_kafka.admin import AdminClient, NewTopic
@@ -25,20 +26,29 @@ class Purchase:
         """Serializes the object in JSON string format"""
         # TODO: Serializer the Purchase object
         #       See: https://docs.python.org/3/library/json.html#json.dumps
-        return ""
+        return json.dumps(asdict(self))
 
 
 def produce_sync(topic_name):
     """Produces data synchronously into the Kafka Topic"""
     p = Producer({"bootstrap.servers": BROKER_URL})
-
+    
+    start_time = datetime.datetime.utcnow()
+    curr_iteration  = 0
     # TODO: Write a synchronous production loop.
     #       See: https://docs.confluent.io/current/clients/confluent-kafka-python/#confluent_kafka.Producer.flush
     while True:
         # TODO: Instantiate a `Purchase` on every iteration. Make sure to serialize it before
         #       sending it to Kafka!
+        # p.produce(topic_name, ...)
         p.produce(topic_name, Purchase().serialize())
-        p.flush()
+        p.flush
+        
+        if curr_iteration % 1000 == 0:
+            elapsed = (datetime.datetime.utcnow() - start_time).seconds
+            print(f"Message sent {curr_iteration} | total elapsed seconds : {elapsed}")
+        curr_iteration += 1
+        
 
 
 def main():
