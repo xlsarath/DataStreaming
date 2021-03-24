@@ -26,9 +26,16 @@ async def consume(topic_name):
         messages = c.consume(5, timeout=1.0) # consumes 5 messages at once. in case of poll its just 1 at a time
         # TODO: Print something to indicate how many messages you've consumed. Print the key and value of
         #       any message(s) you consumed
+        #message = c.poll(1.0) #<-- uncomment to make this work
+
         print(f"consumed {len(messages)} messages")
         for message in messages:
-            print(f"consume message {message.key()}: {message.value()}")
+            if message is None:
+                print(" no message received from consumer")
+            elif message.error() is not None:
+                print(f"error from consumer {message.error()}")
+            else:        
+                print(f"consume message {message.key()}: {message.value()}")
 
         # Do not delete this!
         await asyncio.sleep(0.01)
