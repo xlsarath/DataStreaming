@@ -61,3 +61,9 @@ Backward Compatibility - means that consumer code developed against the most rec
 Forward Compatibility - means that consumer code developed against the previous version of an Avro Schema can consume data using the newest version of a schema without modification.
 Full Compatibility - means that consumers developed against the latest schema can consume data using the previous schema, and that consumers developed against the previous schema can consume data from the latest schema as well. In other words, full compatibility means that a schema change is both forward and backward compatible.
 None Compatibility - disables compatibility checking by Schema Registry.
+The process of changing the definition of our data schema is known as Schema Evolution.
+Schema Registry can help keep track of schema changes and their compatibility with existing schemas using its compatibility API.
+BACKWARD and BACKWARD_TRANSITIVE compatibility indicate that consumers developed against the latest version of the schema can use one or more previous schemas. BACKWARD is the default for Schema Registry.
+FORWARD and FORWARD_TRANSITIVE compatibility indicate that consumers developed against the previous (or potentially earlier) version of a schema can continue to use data with the latest schema definition.
+FULL and FULL_TRANSITIVE compatibility indicate that a schema change is both forward and backward compatible.
+NONE compatibility means that compatibility is not tracked. Use of NONE is not recommended.
