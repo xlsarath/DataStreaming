@@ -46,3 +46,5 @@ async def clickevent(clickevents):
 
 if __name__ == "__main__":
     app.main()
+#root@4013b4838659:/home/workspace# kafka-console-consumer --bootstrap-server localhost:9092 --topic com.udacity.streams.clickevents.scored
+#python exercise.6.5.py worker
